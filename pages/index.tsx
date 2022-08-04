@@ -1,9 +1,14 @@
+import {AddIcon} from '@chakra-ui/icons';
+import {
+  Accordion,
+  Box,
+  Button, chakra, FormLabel, Heading, Input, Textarea,
+} from '@chakra-ui/react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
 import React, {ChangeEvent, useState} from 'react';
 import StudentInput from '../components/StudentInput';
 import generate from '../helpers/followUpGenerator';
-import styles from '../styles/Home.module.css';
 
 
 const newStudent = {student: '', description: ''};
@@ -22,7 +27,10 @@ const Home: NextPage = () => {
   }]);
 
   const removeStudent = (index: number) => {
-    setStudents(students.filter((_, i) => i !== index));
+    console.log(students);
+    const filteredState = students.filter((_, i) => i !== index);
+    console.log(filteredState);
+    setStudents(filteredState);
   };
 
   const handleChange = ({target: {name, value, id}}: ChangeEvent<any>) => {
@@ -69,7 +77,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Follow-up Generator</title>
         <meta
@@ -79,108 +87,152 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={styles.header}>
-        <h1>Follow-up Generator</h1>
-      </header>
+      <Heading
+        textAlign="center"
+        padding="3vh"
+        mb="3vh"
+        borderBottom="solid 1px lightgray"
+      >
+        <h1>Gerador de follow-up</h1>
+      </Heading>
 
-      <main className={styles.main}>
-        <form className={styles.form}>
-          <label htmlFor="date">
+      <chakra.main
+        maxWidth="100%"
+        padding="0 10rem"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <chakra.form
+          width="50%"
+          display="flex"
+          flexDir="column"
+        >
+          <chakra.div
+            display="flex"
+            w="100%"
+            flexWrap="wrap"
+            gap="1rem"
+          >
+            <FormLabel htmlFor="date">
             Data: {''}
-            <input
-              name="date"
-              type="date"
-              id="date"
-              value={date}
-              onChange={handleChange}
-            />
-          </label>
-          <label htmlFor="inicio">
+              <Input
+                w="150px"
+                name="date"
+                type="date"
+                id="date"
+                value={date}
+                onChange={handleChange}
+              />
+            </FormLabel>
+            <FormLabel htmlFor="inicio">
             Início: {''}
-            <input
-              name='inicio'
-              type="time"
-              id="inicio"
-              value={inicio}
-              onChange={handleChange}
-            />
-          </label>
-          <label htmlFor="fim">
+              <Input
+                w="120px"
+                name='inicio'
+                type="time"
+                id="inicio"
+                value={inicio}
+                onChange={handleChange}
+              />
+            </FormLabel>
+            <FormLabel htmlFor="fim">
             Fim: {''}
-            <input
-              name='fim'
-              type="time"
-              id="fim"
-              value={fim}
-              onChange={handleChange}
-            />
-          </label>
-          <label htmlFor="engagement">
+              <Input
+                w="120px"
+                name='fim'
+                type="time"
+                id="fim"
+                value={fim}
+                onChange={handleChange}
+              />
+            </FormLabel>
+          </chakra.div>
+          <FormLabel htmlFor="engagement">
             Engajamento: {''}
-            <input
+            <Input
+              w="65px"
               type="number"
               id="engagement"
               name="engagement"
               value={engagement}
               onChange={handleChange}
             />
-          </label>
-          <label htmlFor="summary">
-            Resumo: {''}
-            { students.map(({student, description}, i) => (
-              <StudentInput
-                key={i}
-                student={student}
-                description={description}
-                onChange={handleChange}
-                removeStudent={removeStudent}
-                index={i}
-                disabled={students.length === 1}
-              />
-            )) }
-            <button
+          </FormLabel>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+                Resumo: {''}
+            <Button
               type="button"
-              onClick={() => setStudents([...students, newStudent])}
+              colorScheme="green"
+              float="right"
+              margin="1rem"
+              size="sm"
+              variant="outline"
+              leftIcon={<AddIcon />}
+              onClick={() => {
+                setStudents([...students, newStudent]);
+              }}
+              disabled={students[students.length - 1]!.student.length < 3}
             >
-              Adicionar aluno
-            </button>
-          </label>
-          <label htmlFor="positive">
+              Add Estudante
+            </Button>
+          </Box>
+          <FormLabel>
+            <Accordion allowToggle>
+              { students.map(({student, description}, i) => (
+                <StudentInput
+                  key={i}
+                  student={student}
+                  description={description}
+                  onChange={handleChange}
+                  removeStudent={removeStudent}
+                  index={i}
+                  disabled={students.length === 1}
+                />
+              )) }
+            </Accordion>
+          </FormLabel>
+          <FormLabel htmlFor="positive">
             Pontos Positivos: {''}
-            <textarea
+            <Textarea
               id="positive"
               name="positive"
               value={positive}
-              placeholder="SEPARE AS ENTRADAS COM *PONTO E VÍRGULA* ;"
+              placeholder="Itens são separados por quebra de linha"
               onChange={handleChange}
             />
-          </label>
-          <label htmlFor="bestory">
+          </FormLabel>
+          <FormLabel htmlFor="bestory">
             Pontos de Melhoria: {''}
-            <textarea
+            <Textarea
               id="melhorias"
               name="bestory"
               value={bestory}
-              placeholder="SEPARE AS ENTRADAS COM *PONTO E VÍRGULA* ;"
+              placeholder="Itens são separados por quebra de linha"
               onChange={handleChange}
             />
-          </label>
-          <label htmlFor="atention">
+          </FormLabel>
+          <FormLabel htmlFor="atention">
             Pontos de Atenção: {''}
-            <textarea
+            <Textarea
               id="atenção"
               name="atention"
               value={atention}
-              placeholder="SEPARE AS ENTRADAS COM *PONTO E VÍRGULA* ;"
+              placeholder="Itens são separados por quebra de linha"
               onChange={handleChange}
             />
-          </label>
-        </form>
+          </FormLabel>
+        </chakra.form>
         <div>
           <h1>Preview do Follow-up</h1>
-          <textarea
+          <Textarea
             readOnly
-            rows={35}
+            rows={25}
             cols={50}
             value={generate({
               date,
@@ -196,9 +248,16 @@ const Home: NextPage = () => {
             })}
           />
         </div>
-      </main>
+      </chakra.main>
 
-      <footer className={styles.footer}>
+      <chakra.footer
+        borderTop="solid 1px lightgray"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        padding="1rem"
+        marginTop="2rem"
+      >
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
@@ -206,7 +265,7 @@ const Home: NextPage = () => {
         >
           Feito por: Vitor Martins Diorio
         </a>
-      </footer>
+      </chakra.footer>
     </div>
   );
 };

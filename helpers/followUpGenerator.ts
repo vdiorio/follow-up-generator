@@ -32,9 +32,15 @@ ${d.students
       .map((s) => `• \`${capitalizeName(s.student)}\` - ${s.description}.\n`)
       .join('')}
 :joinha: *Pontos Positivos:*
-• ${d.positive || '-NA-'}\n
+${d.positive.length ?
+  d.positive.split('\n')
+      .map((row) => `    • ${row}\n`).join('') : '    • -NA-\n'}
 :soco: *Pontos para melhoria:*
-• ${d.bestory || '-NA-'}\n
+${d.bestory.length ?
+  d.bestory.split('\n')
+      .map((row) => `    • ${row}\n`).join('') : '    • -NA-\n'}
 :atenção: *Pontos de Atenção:*
-• ${d.atention || '-NA-'}`;
+${d.atention.length ?
+  d.atention.split('\n')
+      .map((row) => `    • ${row}\n`).join('') : '    • -NA-\n'}`;
 }
