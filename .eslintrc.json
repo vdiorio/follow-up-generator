@@ -21,5 +21,10 @@
     ],
     "rules": {
        "require-jsdoc": "off"
-    }
+    },
+    "overrides": [
+        {
+          "files": [ "pages/**/*.js", "components/**/*.js" ]
+        }
+      ]
 }
