@@ -10,7 +10,6 @@ import Image from 'next/image';
 import React, {ChangeEvent, useState} from 'react';
 import StudentInput from '../components/StudentInput';
 import generate from '../helpers/followUpGenerator';
-import image from '../public/followup.png';
 
 
 const newStudent = {student: '', description: ''};
@@ -261,7 +260,7 @@ const Home: NextPage = () => {
               <span style={{color: 'red'}}>{'** ATENÇÃO ** '}</span>
               Ao colar no slack, aplique a formatação de texto
             </p>
-            <Image src={image} style={{float: 'right'}} />
+            <Image src="../public/followup.png" style={{float: 'right'}} />
           </Box>
         </div>
       </chakra.main>
