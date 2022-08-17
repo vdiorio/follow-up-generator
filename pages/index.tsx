@@ -6,9 +6,11 @@ import {
 } from '@chakra-ui/react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import React, {ChangeEvent, useState} from 'react';
 import StudentInput from '../components/StudentInput';
 import generate from '../helpers/followUpGenerator';
+import image from '../public/followup.png';
 
 
 const newStudent = {student: '', description: ''};
@@ -247,6 +249,20 @@ const Home: NextPage = () => {
               atention,
             })}
           />
+          <Box
+            padding="1rem"
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-evenly"
+            gap="1rem"
+            alignItems="center"
+          >
+            <p style={{fontWeight: 'bold'}}>
+              <span style={{color: 'red'}}>{'** ATENÇÃO ** '}</span>
+              Ao colar no slack, aplique a formatação de texto
+            </p>
+            <Image src={image} style={{float: 'right'}} />
+          </Box>
         </div>
       </chakra.main>
 
