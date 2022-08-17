@@ -2,11 +2,10 @@ import {AddIcon} from '@chakra-ui/icons';
 import {
   Accordion,
   Box,
-  Button, chakra, FormLabel, Heading, Input, Textarea,
+  Button, chakra, FormLabel, Heading, Img, Input, Textarea,
 } from '@chakra-ui/react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import React, {ChangeEvent, useState} from 'react';
 import StudentInput from '../components/StudentInput';
 import generate from '../helpers/followUpGenerator';
@@ -260,7 +259,10 @@ const Home: NextPage = () => {
               <span style={{color: 'red'}}>{'** ATENÇÃO ** '}</span>
               Ao colar no slack, aplique a formatação de texto
             </p>
-            <Image src="../public/followup.png" style={{float: 'right'}} />
+            <Img
+              src="https://i.imgur.com/jEFLVjh.png"
+              style={{float: 'right'}}
+            />
           </Box>
         </div>
       </chakra.main>
